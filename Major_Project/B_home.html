@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Btech Explorer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: #3498db; /* Updated background color */
+            color: #fff;
+            text-align: center;
+            padding: 0.3em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            margin-top: 5px;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 50px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #fff;
+            background-color: #e74c3c;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 2em;
+        }
+
+        .feature {
+            width: 30%;
+            text-align: center;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .feature p {
+            color: #777;
+        }
+
+        .feature img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            max-height: 150px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        #loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="B_home.html">Btech Explorer</a></div>
+        <nav>
+            <a href="B_home.html">Home</a> |
+            <a href="#">Explore Colleges</a> |
+            <a href="Ptool.html">Predictor Tool</a> |
+            <a href="#">Rank Analysis</a> |
+            <a href="Reg.html">Login/Register</a>
+        </nav>
+    </header>
+
+    <section>
+        <h1>Welcome to Btech Explorer</h1>
+        <p>Explore the world of B.Tech admissions with data-driven insights.</p>
+        <a href="Reg.html" class="cta-button">Get Started</a>
+    </section>
+
+    <section class="features">
+        <div class="feature" onmouseover="showTooltip('Explore Colleges', event)" onmouseout="hideTooltip()">
+            <img src="https://cdn1.iconfinder.com/data/icons/university-indigo-vol-2/256/University-512.png" alt="Explore Colleges Image">
+            <h3>Explore Colleges</h3>
+            <p>Discover detailed information about colleges based on various parameters.</p>
+        </div>
+        <div class="feature" onmouseover="showTooltip('Predictor Tool', event)" onmouseout="hideTooltip()" onclick="window.location.href='Ptool.html';">
+            <img src="https://cdn2.iconfinder.com/data/icons/online-marketing-butterscotch-vol-1/512/Analytics-512.png" alt="Predictor Tool Image">
+            <h3>Predictor Tool</h3>
+            <p>Predict potential colleges and branches based on your academic details.</p>
+        </div>
+        <div class="feature" onmouseover="showTooltip('Rank Analysis', event)" onmouseout="hideTooltip()">
+            <img src="https://freepngimg.com/thumb/analysis/5-2-analysis-png-hd.png" alt="Rank Analysis Image">
+            <h3>Rank Analysis</h3>
+            <p>Understand the correlation between ranks and allotments with insightful analyses.</p>
+        </div>
+    </section>
+
+    <div id="loading-spinner" style="display: none;"></div>
+
+    <script>
+        function showFeatureDetails(featureName) {
+            alert(`Learn more about "${featureName}"`);
+        }
+
+        function showTooltip(text, event) {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = text;
+            document.body.appendChild(tooltip);
+
+            // Position the tooltip
+            const x = event.clientX + 10;
+            const y = event.clientY + 10;
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = `${y}px`;
+        }
+
+        function hideTooltip() {
+            const tooltip = document.querySelector('.tooltip');
+            if (tooltip) {
+                document.body.removeChild(tooltip);
+            }
+        }
+
+        window.addEventListener('beforeunload', () => {
+            document.getElementById('loading-spinner').style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>

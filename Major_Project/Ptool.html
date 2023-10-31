@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Btech Explorer - Predictor Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 0.3em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        nav {
+            margin-top: 5px;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            transform: translateY(-3px);
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            color: #3498db;
+            text-align: left;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #3498db;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 10px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        button.predict {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+            color: #fff;
+            background-color: #3498db;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .result img {
+            max-width: 100%;
+            height: auto;
+            max-height: 50px;
+        }
+
+        .result p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #2c3e50;
+        }
+
+        .green {
+            color: #2ecc71;
+        }
+
+        .red {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="B_home.html">Btech Explorer</a></div>
+        <nav>
+            <a href="B_home.html">Home</a> |
+            <a href="#">Explore Colleges</a> |
+            <a href="Ptool.html">Predictor Tool</a> |
+            <a href="#">Rank Analysis</a> |
+            <a href="Reg.html">Login/Register</a>
+        </nav>
+    </header>
+
+    <section>
+        <h1>Predictor Tool</h1>
+        <p>Input your academic details and preferred colleges/branches to see your chances of admission.</p>
+        <form id="predictorForm">
+            <label for="rank">Rank:</label>
+            <input type="text" id="rank" name="rank" placeholder="Enter Rank" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="general">General</option>
+                <option value="obc">OBC</option>
+                <option value="sc">SC</option>
+                <option value="st">ST</option>
+            </select>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>College</th>
+                        <th>Branch</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="college[]" placeholder="Enter College"></td>
+                        <td><input type="text" name="branch[]" placeholder="Enter Branch"></td>
+                        <td><button type="button" class="remove-row" onclick="removeRow(this)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="button" class="predict" onclick="predictChances()">Predict Chances</button>
+        </form>
+
+        <div class="result" id="result">
+            <!-- Result will be displayed here -->
+        </div>
+    </section>
+
+    <script>
+        function removeRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function predictChances() {
+            const form = document.getElementById('predictorForm');
+            const resultDiv = document.getElementById('result');
+
+            // Your existing predictChances logic here...
+
+            // Display result (example, you can modify this based on your logic)
+            resultDiv.innerHTML = '<img src="https://example.com/tick.png" alt="Green Tick" class="green">' +
+                '<p>Congratulations! You have a good chance of admission.</p>';
+        }
+    </script>
+
+</body>
+</html>
